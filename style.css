@@ -88,3 +88,21 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+
+/* JavaScript Features Section */
+#javascript-features {
+    padding: 2rem;
+    max-width: 800px;
+    margin: auto;
+    background-color: #fff;
+    text-align: center;
+}
+
+#javascript-features h2 {
+    color: #2c3e50;
+    text-align: center;
+}
+
+#javascript-features a:hover {
+    background-color: #34495e !important;
+}

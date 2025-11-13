@@ -1,0 +1,185 @@
+<!-- Carter Arribas-->
+<!-- CRCP 3300-->
+<!-- Color Generator Page with JavaScript-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Color Generator - Carter Arribas</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .color-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .color-display {
+            width: 100%;
+            height: 300px;
+            margin: 2rem 0;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .color-info {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .color-code {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0.5rem 0;
+        }
+
+        .generate-btn {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .generate-btn:hover {
+            background-color: #34495e;
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #2c3e50;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 2px solid #2c3e50;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background-color: #2c3e50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Random Color Generator</h1>
+        <p>Interactive JavaScript Color Generator</p>
+    </header>
+
+    <div class="color-container">
+        <section id="color-generator">
+            <h2>Generate Random Colors</h2>
+            <p>Click the button below to generate a new random color!</p>
+            
+            <div class="color-display" id="colorDisplay">
+                <p>Click "Generate Color" to start!</p>
+            </div>
+
+            <div class="color-info">
+                <p><strong>Current Color:</strong></p>
+                <p class="color-code" id="colorCode">#FFFFFF</p>
+                <p><strong>RGB Values:</strong></p>
+                <p class="color-code" id="rgbValues">rgb(255, 255, 255)</p>
+            </div>
+
+            <button class="generate-btn" onclick="generateRandomColor()">Generate New Color</button>
+            <button class="generate-btn" onclick="generatePastelColor()">Generate Pastel Color</button>
+        </section>
+
+        <a href="../index.html" class="nav-link">← Back to Home</a>
+    </div>
+
+    <footer>
+        <p>© 2025 Carter Arribas | <a href="https://github.com/carriba17" target="_blank">View on GitHub</a></p>
+    </footer>
+
+    <script>
+        // Function to generate a random color
+        function generateRandomColor() {
+            // Generate random RGB values
+            const red = Math.floor(Math.random() * 256);
+            const green = Math.floor(Math.random() * 256);
+            const blue = Math.floor(Math.random() * 256);
+
+            // Convert to hex
+            const hex = rgbToHex(red, green, blue);
+            const rgb = `rgb(${red}, ${green}, ${blue})`;
+
+            // Update the display
+            updateColorDisplay(hex, rgb, red, green, blue);
+        }
+
+        // Function to generate a pastel color (lighter, softer colors)
+        function generatePastelColor() {
+            // Generate pastel RGB values (higher values for lighter colors)
+            const red = Math.floor(Math.random() * 128) + 128;
+            const green = Math.floor(Math.random() * 128) + 128;
+            const blue = Math.floor(Math.random() * 128) + 128;
+
+            // Convert to hex
+            const hex = rgbToHex(red, green, blue);
+            const rgb = `rgb(${red}, ${green}, ${blue})`;
+
+            // Update the display
+            updateColorDisplay(hex, rgb, red, green, blue);
+        }
+
+        // Helper function to convert RGB to Hex
+        function rgbToHex(r, g, b) {
+            return "#" + [r, g, b].map(x => {
+                const hex = x.toString(16);
+                return hex.length === 1 ? "0" + hex : hex;
+            }).join("");
+        }
+
+        // Function to update the color display
+        function updateColorDisplay(hex, rgb, r, g, b) {
+            const colorDisplay = document.getElementById('colorDisplay');
+            const colorCode = document.getElementById('colorCode');
+            const rgbValues = document.getElementById('rgbValues');
+
+            // Set background color
+            colorDisplay.style.backgroundColor = hex;
+            colorDisplay.innerHTML = `<p style="color: ${getContrastColor(r, g, b)}">${hex}</p>`;
+
+            // Update text displays
+            colorCode.textContent = hex;
+            rgbValues.textContent = rgb;
+        }
+
+        // Function to determine contrasting text color (black or white)
+        function getContrastColor(r, g, b) {
+            // Calculate relative luminance
+            const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+            return luminance > 0.5 ? '#000000' : '#FFFFFF';
+        }
+
+        // Generate an initial color on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            generateRandomColor();
+        });
+    </script>
+</body>
+</html>
+
